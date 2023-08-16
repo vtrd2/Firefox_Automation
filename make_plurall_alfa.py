@@ -5,10 +5,11 @@ from ai_to_answer_questions import ArtificialInteligence
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-users = [['cm006499@cfjl.com.br', 'ZXXKNM44B'], ['vh003827@cfjl.com.br', 'vrh383940']] #['eb004111', 'cfjl2022'], ['hr003597', 'Hugo2005w']]# ['hr003597', 'Hugo2005w'], ['ds003627@cfjl.com.br', 'zecaurubu'], ['gk003379@cfjl.com.br', 'charles030617'], ['nb006456', 'cfjl2020'], ['gd006738', 'Gustavokd99#']] #["db005156@cfjl.com.br", "derek123"]]#[['hr003597', 'Hugo2005w'], ['vh003827@cfjl.com.br', 'vrh383940']]#, ['bb006144@cfjl.com.br', 'bgb040406'], ['lb004730', 'plurall123']]
+users = [['gk003379@cfjl.com.br', 'charles030617'], ['lb004730', 'plurall123']]#['ep006003', 'erikkgpedo'], ['gk005886', 'gabi0109'][['cm006499@cfjl.com.br', 'ZXXKNM44B'], ['vh003827@cfjl.com.br', 'vrh383940']] #['eb004111', 'cfjl2022'], ['hr003597', 'Hugo2005w']]# ['hr003597', 'Hugo2005w'], ['ds003627@cfjl.com.br', 'zecaurubu'], ['gk003379@cfjl.com.br', 'charles030617'], ['nb006456', 'cfjl2020'], ['gd006738', 'Gustavokd99#']] #["db005156@cfjl.com.br", "derek123"]]#[['hr003597', 'Hugo2005w'], ['vh003827@cfjl.com.br', 'vrh383940']]#, ['bb006144@cfjl.com.br', 'bgb040406'], ['lb004730', 'plurall123']]
 
 def open_plurall():
     browser = webdriver.Firefox()
+    browser.set_page_load_timeout(40)
 
     browser.get('https://conta.plurall.net/')
 
@@ -26,7 +27,7 @@ def send_user_passwd(browser, user, passwd):
 
     time.sleep(2)
 
-def get_task(browser, link="https://atividades.plurall.net/material/2205876/?only_available_todo=true"):
+def get_task(browser, link):
     browser.get(link)
 
     time.sleep(1)
@@ -87,11 +88,13 @@ def open_book(browser, link):
         time.sleep(2) #3
 
 def load_options(browser):
-    while True:
+    for _ in range(100):
         time.sleep(0.5)
         options = browser.find_elements_by_class_name("option")
         if len(options) > 1: #!=1
             return options
+    else:
+        raise Exception
 
 def get_correct_alternative(browser, options):
     correct_alternative = None
@@ -145,7 +148,7 @@ def go_back(browser):
     time.sleep(2)
 
 def verify_type_question(browser):
-    while 100:
+    for _ in range(100):
         text_area = bool(len(browser.find_elements_by_tag_name("textarea")))
         options = bool(browser.find_elements_by_class_name("option"))
         send_file = bool(browser.find_elements_by_class_name("css-1o1jo9h"))
@@ -157,7 +160,8 @@ def verify_type_question(browser):
             return 'send_file'
         else:
             time.sleep(0.5)
-    raise Exception
+    else:
+        raise Exception
 
 def get_question_text(browser):
     texts = browser.find_elements_by_tag_name('.Question_question-text__3kSQa > p')
@@ -279,12 +283,14 @@ def answer_mark_question(browsers):
 
             last_possibles = possibles
             possibles =  [possible for possible in possibles if possible not in wrong_alternatives]
-            while True:
+            for _ in range(100):
                 if last_possibles == possibles and len(possibles) > 1:
                     possibles = get_all_possible_alternatives(browsers)
                 else:
                     break
                 time.sleep(0.4) #0.7
+            else:
+                raise Exception
 
 
 def make_activities_from_task(browsers):
@@ -325,7 +331,7 @@ if __name__ == "__main__":
                     browser_admin = browsers[0]
 
                     links = [
-                            "https://atividades.plurall.net/material/2323144/?only_available_todo=true"
+                            "https://atividades.plurall.net/material/10366533/?only_available_todo=true"
                             ]
 
                     for browser in browsers:
@@ -348,6 +354,7 @@ if __name__ == "__main__":
                                 get_task(browser_admin, link)
                             else:
                                 break
+                            #time.sleep(10)
                 except Exception as e:
                     print(e)
                     for browser in browsers:
@@ -355,7 +362,7 @@ if __name__ == "__main__":
                             browser.close()
                         except:
                             pass
-                    time.sleep(30)
+                    time.sleep(5)
                     continue
                     #break
                 break
@@ -367,11 +374,11 @@ if __name__ == "__main__":
                     pass
             if end_of_task:
                 break
-            time.sleep(10)
+            time.sleep(5)
         users = [users[-1]] + users[0:-1]
 
 print('ok')
 
-#import os
+import os
 
-#os.system("shutdown -s -t 100")
+os.system("shutdown -s -t 100")
