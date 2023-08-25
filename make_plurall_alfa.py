@@ -1,15 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time, random, math
-from ai_to_answer_questions import ArtificialInteligence 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-users = [['gk003379@cfjl.com.br', 'charles030617'], ['lb004730', 'plurall123']]#['ep006003', 'erikkgpedo'], ['gk005886', 'gabi0109'][['cm006499@cfjl.com.br', 'ZXXKNM44B'], ['vh003827@cfjl.com.br', 'vrh383940']] #['eb004111', 'cfjl2022'], ['hr003597', 'Hugo2005w']]# ['hr003597', 'Hugo2005w'], ['ds003627@cfjl.com.br', 'zecaurubu'], ['gk003379@cfjl.com.br', 'charles030617'], ['nb006456', 'cfjl2020'], ['gd006738', 'Gustavokd99#']] #["db005156@cfjl.com.br", "derek123"]]#[['hr003597', 'Hugo2005w'], ['vh003827@cfjl.com.br', 'vrh383940']]#, ['bb006144@cfjl.com.br', 'bgb040406'], ['lb004730', 'plurall123']]
+users = [['nb006456', 'cfjl2020'], ['vh003827@cfjl.com.br', 'vrh383940']]#[["CZY00006700", "taline0204"], ["CZY00006702", "P5KBDCJTRBPT"]]#["CZY00006700", "taline0204"],['ep006003', 'erikkgpedo'], ['gk005886', 'gabi0109'][['cm006499@cfjl.com.br', 'ZXXKNM44B'], ['vh003827@cfjl.com.br', 'vrh383940']] #['eb004111', 'cfjl2022'], ['hr003597', 'Hugo2005w']]# ['hr003597', 'Hugo2005w'], ['ds003627@cfjl.com.br', 'zecaurubu'], ['gk003379@cfjl.com.br', 'charles030617'], ['nb006456', 'cfjl2020'], ['gd006738', 'Gustavokd99#']] #["db005156@cfjl.com.br", "derek123"]]#[['hr003597', 'Hugo2005w'], ['vh003827@cfjl.com.br', 'vrh383940']]#, ['bb006144@cfjl.com.br', 'bgb040406'], ['lb004730', 'plurall123']]
 
 def open_plurall():
     browser = webdriver.Firefox()
-    browser.set_page_load_timeout(40)
+    browser.set_page_load_timeout(100)
 
     browser.get('https://conta.plurall.net/')
 
@@ -379,6 +378,6 @@ if __name__ == "__main__":
 
 print('ok')
 
-import os
+#import os
 
-os.system("shutdown -s -t 100")
+#os.system("shutdown -s -t 100")
