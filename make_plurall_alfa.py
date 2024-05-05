@@ -4,11 +4,10 @@ import time, random, math
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-users = [['nb006456', 'cfjl2020'], ['vh003827@cfjl.com.br', 'vrh383940']]#[["CZY00006700", "taline0204"], ["CZY00006702", "P5KBDCJTRBPT"]]#["CZY00006700", "taline0204"],['ep006003', 'erikkgpedo'], ['gk005886', 'gabi0109'][['cm006499@cfjl.com.br', 'ZXXKNM44B'], ['vh003827@cfjl.com.br', 'vrh383940']] #['eb004111', 'cfjl2022'], ['hr003597', 'Hugo2005w']]# ['hr003597', 'Hugo2005w'], ['ds003627@cfjl.com.br', 'zecaurubu'], ['gk003379@cfjl.com.br', 'charles030617'], ['nb006456', 'cfjl2020'], ['gd006738', 'Gustavokd99#']] #["db005156@cfjl.com.br", "derek123"]]#[['hr003597', 'Hugo2005w'], ['vh003827@cfjl.com.br', 'vrh383940']]#, ['bb006144@cfjl.com.br', 'bgb040406'], ['lb004730', 'plurall123']]
 
 def open_plurall():
     browser = webdriver.Firefox()
-    browser.set_page_load_timeout(100)
+    browser.set_page_load_timeout(80)
 
     browser.get('https://conta.plurall.net/')
 
@@ -77,7 +76,7 @@ def open_book(browser, link):
             continue
         livro.click()
         if first_book:
-            time.sleep(15)
+            time.sleep(15) #15
             first_book = False
         else:
             time.sleep(5) #5
@@ -186,16 +185,14 @@ def get_last_response(browsers):
 def answer_write_question(browsers):
     #text = get_question_text(browsers[0])
 
-    #response = get_last_response(browsers)
+    response = get_last_response(browsers)
 
-    #if not response:
-        #response = AI.make_question(text)
-        #response = "<html><html><html><html></html></html></html></html>"#"Error loading the response..."
+    if not response:
+        response = "<html><html><html><html></html></html></html></html>"
 
-    #if len(response) <= 20:
-    #    response = response*20
+    elif len(response) <= 20:
 
-    response = "<html><html><html><html></html></html></html></html>"
+        response = f"{response}{'.'*20}"
 
     for browser in browsers:
         textareas = browser.find_elements_by_tag_name("textarea")
@@ -316,68 +313,86 @@ def init_browser(user, passwd):
 
     return browser
 
+def desligar():
+    import os
+    os.system("shutdown -s -t 100")
+
 if __name__ == "__main__":
-    #AI = ArtificialInteligence()
-    for _ in range(len(users)):
-        while True:
+    range_users = [
+        [["jj003942@cfjl.com.br", "2107joao"], ["CZY00006702", "P5KBDCJTRBPT"]],
+        ]
+    for users in range_users:
+        for _ in range(len(users)):
             while True:
-                first_book = True
-                try:
-                    browsers = []
-                    for user in users:
-                        browsers.append(init_browser(user[0], user[1]))
+                while True:
+                    first_book = True
+                    try:
+                        browsers = []
+                        for user in users:
+                            browsers.append(init_browser(user[0], user[1]))
 
-                    browser_admin = browsers[0]
+                        browser_admin = browsers[0]
 
-                    links = [
-                            "https://atividades.plurall.net/material/10366533/?only_available_todo=true"
+                        links = [
+                            'https://atividades.plurall.net/material/10233359/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459476/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459540/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459477/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459467/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459541/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459473/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459542/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459466/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459462/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459475/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459472/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459474/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459464/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10233359/?only_available_todo=true',
+                            'https://atividades.plurall.net/material/10459471/?only_available_todo=true'                            
                             ]
-
-                    for browser in browsers:
-                        get_task(browser, links[0])
-
-                        close_spam(browser)
-                    
-                    for link in links:
-                        get_task(browser_admin, link)
                         
-                        while True:
-                            task_link = get_task_link(browser_admin)
-                            if task_link:
-                                open_link(browser_admin, task_link)
+                        for browser in browsers:
+                            get_task(browser, links[0])
 
-                                open_book(browser_admin, task_link)
+                            close_spam(browser)
+                        
+                        for link in links:
+                            get_task(browser_admin, link)
+                            
+                            while True:
+                                task_link = get_task_link(browser_admin)
+                                if task_link:
+                                    open_link(browser_admin, task_link)
 
-                                make_activities_from_task(browsers)
+                                    open_book(browser_admin, task_link)
 
-                                get_task(browser_admin, link)
-                            else:
-                                break
-                            #time.sleep(10)
-                except Exception as e:
-                    print(e)
-                    for browser in browsers:
-                        try:
-                            browser.close()
-                        except:
-                            pass
-                    time.sleep(5)
-                    continue
-                    #break
-                break
-            end_of_task = bool(len(browser_admin.find_elements_by_class_name("ErrorMessage_no-results__3albA")))
-            for browser in browsers:
-                try:
-                    browser.close()
-                except:
-                    pass
-            if end_of_task:
-                break
-            time.sleep(5)
-        users = [users[-1]] + users[0:-1]
+                                    make_activities_from_task(browsers)
 
-print('ok')
+                                    get_task(browser_admin, link)
+                                else:
+                                    break
+                                #time.sleep(10)
+                    except Exception as e:
+                        print(e)
+                        for browser in browsers:
+                            try:
+                                browser.close()
+                            except:
+                                pass
+                        time.sleep(5)
+                        continue
+                        #break
+                    break
+                end_of_task = bool(len(browser_admin.find_elements_by_class_name("ErrorMessage_no-results__3albA")))
+                for browser in browsers:
+                    try:
+                        browser.close()
+                    except:
+                        pass
+                if end_of_task:
+                    break
+                time.sleep(5)
+            users = [users[-1]] + users[0:-1]
 
-#import os
-
-#os.system("shutdown -s -t 100")
+    #desligar()
