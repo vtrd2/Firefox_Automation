@@ -9,7 +9,7 @@ def open_plurall():
     browser = webdriver.Firefox()
     browser.set_page_load_timeout(80)
 
-    browser.get('https://conta.plurall.net/')
+    browser.get('#')
 
     return browser
 
@@ -319,7 +319,7 @@ def desligar():
 
 if __name__ == "__main__":
     range_users = [
-        [["jj003942@cfjl.com.br", "2107joao"], ["CZY00006702", "P5KBDCJTRBPT"]],
+        [],
         ]
     for users in range_users:
         for _ in range(len(users)):
@@ -333,24 +333,7 @@ if __name__ == "__main__":
 
                         browser_admin = browsers[0]
 
-                        links = [
-                            'https://atividades.plurall.net/material/10233359/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459476/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459540/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459477/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459467/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459541/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459473/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459542/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459466/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459462/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459475/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459472/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459474/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459464/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10233359/?only_available_todo=true',
-                            'https://atividades.plurall.net/material/10459471/?only_available_todo=true'                            
-                            ]
+                        links = []
                         
                         for browser in browsers:
                             get_task(browser, links[0])
@@ -372,7 +355,6 @@ if __name__ == "__main__":
                                     get_task(browser_admin, link)
                                 else:
                                     break
-                                #time.sleep(10)
                     except Exception as e:
                         print(e)
                         for browser in browsers:
@@ -382,7 +364,6 @@ if __name__ == "__main__":
                                 pass
                         time.sleep(5)
                         continue
-                        #break
                     break
                 end_of_task = bool(len(browser_admin.find_elements_by_class_name("ErrorMessage_no-results__3albA")))
                 for browser in browsers:
